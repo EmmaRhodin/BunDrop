@@ -2,10 +2,16 @@ import { Link } from "react-router-dom";
 
 function NavLinks() {
   return (
-    <div className="capitalize hidden text-white md:grow md:flex md:justify-end md:visible md:text-[18px] md:gap-7 lg:gap-10 lg:text-[22px]  xl:text-[27px] xl:gap-20 font-bold">
+    <div className="w-full bg-indigo-950 flex items-center">
       <a href="#menu"></a>
-      <Link to="/menu">Menu</Link>
-      <Link to="/basket">Basket</Link>
+      <div className="mx-auto">
+        <Link className="text-orange-300 mr-4 font-bold" to="/menu">
+          -Menu-
+        </Link>
+        <Link className="text-orange-300 ml-4 font-bold" to="/basket">
+          -Basket-
+        </Link>
+      </div>
     </div>
   );
 }

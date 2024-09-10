@@ -1,16 +1,19 @@
 import NavLinks from "./NavLinks";
 import { Link, useNavigate } from "react-router-dom";
+import burgeroisieLogo2 from "../assets/icons/Burgeroisie-logo2.svg";
 
 function Navbar() {
   const Navigate = useNavigate();
   return (
     <>
-      <nav className="w-full h-28 bg-orange-400 flex items-center justify-between pr-[81px] pl-[26px]">
-        <Link className="mr-auto" to="/">
-          <img className="w-56 lg:w-72 xl:w-full" src="" alt="webicon" />
+      <nav className="w-full h-36 bg-indigo-950 justify-between">
+        <div className="h-2"></div>
+        <Link className="" to="/">
+          <img className="w-44 mx-auto" src={burgeroisieLogo2} alt="webicon" />
         </Link>
-
-        <NavLinks />
+        <div className="">
+          <NavLinks />
+        </div>
       </nav>
     </>
   );
