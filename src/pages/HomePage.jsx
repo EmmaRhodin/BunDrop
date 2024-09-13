@@ -8,7 +8,7 @@ export async function loader() {
 
 function HomePage() {
   return (
-    <div className="">
+    <div>
       <section id="welcome" className="flex items-center justify-center h-full">
         <Welcome />
       </section>
@@ -18,7 +18,7 @@ function HomePage() {
       <div className="w-full flex items-center">
         <section
           id="top-products"
-          className="flex items-center justify-center w-6/12 mx-auto"
+          className="flex items-center justify-center w-8/12 mx-auto"
         >
           <TopProducts />
         </section>

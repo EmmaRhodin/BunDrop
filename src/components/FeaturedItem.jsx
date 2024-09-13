@@ -3,7 +3,7 @@ import featuredBurger from "../assets/pictures/FeaturedBurger.svg";
 export default function FeaturedItem() {
   return (
     <div className="relative text-white p-6 flex items-center justify-center">
-      <div className="relative">
+      <div className="relative drop-shadow-light-dark">
         <img
           src={featuredBurger}
           className="w-full h-auto"
