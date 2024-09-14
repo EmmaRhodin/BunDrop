@@ -1,22 +1,29 @@
 import { useState } from "react";
 import NavLinks from "./NavLinks";
 import SideCart from "./SideCart";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import burgeroisieLogo2 from "../assets/icons/Burgeroisie-logo2.svg";
+import { useCart } from "../context/CartContext";
 
 function Navbar() {
+  const { cartItems, addItemToCart, removeItemFromCart } = useCart();
   const [isCartOpen, setIsCartOpen] = useState(false); // Manage cart state
   const Navigate = useNavigate();
+  const location = useLocation();
 
-  // Function to toggle cart visibility
   const toggleCart = () => {
     setIsCartOpen((prev) => !prev);
   };
 
-  // Function to close the cart
   const closeCart = () => {
     setIsCartOpen(false);
   };
+
+  const onRemoveItem = (index) => {
+    removeItemFromCart(index); // Assuming you have a function to remove items from cart in CartContext
+  };
+
+  const showSideCart = location.pathname !== "/checkout";
 
   return (
     <>
@@ -30,10 +37,7 @@ function Navbar() {
               alt="webicon"
             />
           </Link>
-          <button
-            className="ml-auto mr-4 text-orange-300"
-            onClick={toggleCart} // Toggle cart visibility
-          >
+          <button className="ml-auto mr-4 text-orange-300" onClick={toggleCart}>
             Cart
           </button>
         </div>
@@ -43,8 +47,15 @@ function Navbar() {
         </div>
       </nav>
 
-      {/* Pass closeCart function to SideCart */}
-      <SideCart isOpen={isCartOpen} closeCart={closeCart} />
+      {showSideCart && (
+        <SideCart
+          isOpen={isCartOpen}
+          closeCart={closeCart}
+          cartItems={cartItems} // Ensure this receives the updated cart items
+          onRemoveItem={onRemoveItem} // Pass the onRemoveItem function here
+        />
+      )}
+      {/* Pass the addItemToCart function to MenuCard through context or props */}
     </>
   );
 }

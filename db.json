@@ -1,0 +1,164 @@
+{
+  "menu": [
+    {
+      "id": 1,
+      "title": "Grilloutine Beef Burger",
+      "price": 10.99,
+      "description": "A two-patty beef burger on a toasted bun with lettuce, tomatoes, cheese, and patriotic-sauce",
+      "category": "burgers",
+      "dietaryCategory": "meat",
+      "image": "/assets/products/grilloutine-beef-burger.png",
+      "isPopular": true
+    },
+    {
+      "id": 2,
+      "title": "Palais-Royal",
+      "price": 8.99,
+      "description": "A single-patty beef burger with lettuce, tomato, and cheese.",
+      "category": "burgers",
+      "dietaryCategory": "meat",
+      "image": "/assets/products/palais-royal.png",
+      "isPopular": true
+    },
+    {
+      "id": 3,
+      "title": "Big Brissot",
+      "price": 10.99,
+      "description": "A two-patty beef burger with lettuce, tomato, bacon, and three kinds of cheese.",
+      "category": "burgers",
+      "dietaryCategory": "meat",
+      "image": "/assets/products/big-brissot.png",
+      "isPopular": false
+    },
+    {
+      "id": 4,
+      "title": "Peasant Pheasant Burger",
+      "price": 7.99,
+      "description": "A juicy chicken burger with lettuce and tomato",
+      "category": "burgers",
+      "dietaryCategory": "chicken",
+      "image": "/assets/products/peasant-pheasant-burger.png",
+      "isPopular": false
+    },
+    {
+      "id": 5,
+      "title": "Spicy Marat",
+      "price": 8.99,
+      "description": "A spicy chicken burger with bacon, pickles, and cheese",
+      "category": "burgers",
+      "dietaryCategory": "chicken",
+      "image": "/assets/products/spicy-marat.png",
+      "isPopular": true
+    },
+    {
+      "id": 6,
+      "title": "Bastille Burger",
+      "price": 5.99,
+      "description": "A vegetarian patty placed between two wheat bun",
+      "category": "burgers",
+      "dietaryCategory": "vegetarian",
+      "image": "/assets/products/bastille-burger.png",
+      "isPopular": false
+    },
+    {
+      "id": 7,
+      "title": "Antoinette Deluxe",
+      "price": 8.99,
+      "description": "A vegetarian patty, tomato, cheese, and mushrooms placed between two brioche buns ",
+      "category": "burgers",
+      "dietaryCategory": "vegetarian",
+      "image": "/assets/products/antoinette-deluxe.png",
+      "isPopular": false
+    },
+    {
+      "id": 8,
+      "title": "Plebian Fries",
+      "price": 2.99,
+      "description": "Two potatoes cut into stips and fried",
+      "category": "sides",
+      "dietaryCategory": "vegetarian",
+      "image": "/assets/products/plebian-fries.png",
+      "isPopular": false
+    },
+    {
+      "id": 9,
+      "title": "King Fries",
+      "price": 4.99,
+      "description": "Two potatoes cut into strips and fried, then topped with cheese, bacon, and onions.",
+      "category": "sides",
+      "dietaryCategory": "meat",
+      "image": "/assets/products/king-fries.png",
+      "isPopular": true
+    },
+    {
+      "id": 10,
+      "title": "Napoleon á la Carte",
+      "price": 8.99,
+      "description": "A sandwich filled with tomatoe, mushroom, and chicken á la marango",
+      "category": "sandwiches",
+      "dietaryCategory": "chicken",
+      "image": "/assets/products/napoleon-a-la-carte.png",
+      "isPopular": true
+    },
+    {
+      "id": 11,
+      "title": "Jacobin Club Sandwich",
+      "price": 9.99,
+      "description": "A sandwich filled with tomato, bacon, turkey, and ham.",
+      "category": "sandwiches",
+      "dietaryCategory": "meat",
+      "image": "",
+      "isPopular": false
+    },
+    {
+      "id": 12,
+      "title": "Maxi-Milkshake Robespierre",
+      "price": 4.99,
+      "description": "A sweet-strawberry milkshake.",
+      "category": "drinks",
+      "dietaryCategory": "vegetarian",
+      "image": "/assets/products/maxi-milkshake-robespierre.png",
+      "isPopular": false
+    },
+    {
+      "id": 13,
+      "title": "Coca-Corday",
+      "price": 1.99,
+      "description": "A refreshing cola according to our secret recipe.",
+      "category": "drinks",
+      "dietaryCategory": "vegetarian",
+      "image": "/assets/products/coca-corday.png",
+      "isPopular": true
+    },
+    {
+      "id": 14,
+      "title": "Coffee Desmoulins",
+      "price": 1.99,
+      "description": "A cup of hot Desmoulins-roast coffee.",
+      "category": "drinks",
+      "dietaryCategory": "vegetarian",
+      "image": "/assets/products/coffee-desmoulins.png",
+      "isPopular": false
+    },
+    {
+      "id": 15,
+      "title": "Aristocreamy cup",
+      "price": 3.99,
+      "description": "A cup of vanilla ice cream covered in chocolate sauce and pieces of nougat.",
+      "category": "desserts",
+      "dietaryCategory": "vegetarian",
+      "image": "/assets/products/aristocreamy-cup.png",
+      "isPopular": false
+    },
+    {
+      "id": 16,
+      "title": "Voltaire Eclair",
+      "price": 3.99,
+      "description": "A sweet eclair to finish off a fabulous meal.",
+      "category": "desserts",
+      "dietaryCategory": "vegetarian",
+      "image": "/assets/products/voltaire-eclair.png",
+      "isPopular": false
+    }
+  ]
+}
