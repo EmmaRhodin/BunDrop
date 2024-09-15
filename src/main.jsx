@@ -12,6 +12,7 @@ import ErrorPage from "./pages/ErrorPage.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import Menu from "./pages/Menu.jsx";
 import PurchasePage from "./pages/PurchasePage.jsx";
+import ConfirmationPage from "./pages/ConfirmationPage.jsx";
 
 import { loader as homePageLoader } from "./pages/HomePage.jsx";
 import { CartProvider } from "./context/CartContext";
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
           {
             path: "checkout",
             element: <PurchasePage />,
+          },
+          {
+            path: "confirmation",
+            element: <ConfirmationPage />,
           },
           {
             path: "menu",

@@ -6,9 +6,15 @@ import burgeroisieLogo2 from "../assets/icons/Burgeroisie-logo2.svg";
 import { useCart } from "../context/CartContext";
 
 function Navbar() {
-  const { cartItems, addItemToCart, removeItemFromCart } = useCart();
-  const [isCartOpen, setIsCartOpen] = useState(false); // Manage cart state
-  const Navigate = useNavigate();
+  const {
+    cartItems,
+    addItemToCart,
+    removeItemFromCart,
+    increaseItemQuantity,
+    decreaseItemQuantity,
+  } = useCart();
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const navigate = useNavigate();
   const location = useLocation();
 
   const toggleCart = () => {
@@ -20,7 +26,7 @@ function Navbar() {
   };
 
   const onRemoveItem = (index) => {
-    removeItemFromCart(index); // Assuming you have a function to remove items from cart in CartContext
+    removeItemFromCart(index);
   };
 
   const showSideCart = location.pathname !== "/checkout";
@@ -41,8 +47,7 @@ function Navbar() {
             Cart
           </button>
         </div>
-
-        <div className="">
+        <div>
           <NavLinks />
         </div>
       </nav>
@@ -51,11 +56,12 @@ function Navbar() {
         <SideCart
           isOpen={isCartOpen}
           closeCart={closeCart}
-          cartItems={cartItems} // Ensure this receives the updated cart items
-          onRemoveItem={onRemoveItem} // Pass the onRemoveItem function here
+          cartItems={cartItems}
+          onRemoveItem={onRemoveItem}
+          onIncreaseItemQuantity={increaseItemQuantity} // Pass function to SideCart
+          onDecreaseItemQuantity={decreaseItemQuantity} // Pass function to SideCart
         />
       )}
-      {/* Pass the addItemToCart function to MenuCard through context or props */}
     </>
   );
 }

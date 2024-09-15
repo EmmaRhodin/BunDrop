@@ -1,3 +1,4 @@
+// SideCart.jsx
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -6,36 +7,35 @@ export default function SideCart({
   closeCart,
   cartItems,
   onRemoveItem,
+  onIncreaseItemQuantity,
+  onDecreaseItemQuantity,
 }) {
   const [isCartOpen, setIsCartOpen] = useState(isOpen);
   const navigate = useNavigate();
 
-  // Calculate total price
   const totalPrice = cartItems.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
   );
 
-  // Effect to handle cart opening based on `isOpen` and `cartItems`
   useEffect(() => {
     if (cartItems.length > 0 && !isCartOpen) {
       setIsCartOpen(true);
     }
   }, [cartItems, isCartOpen]);
 
-  // Effect to synchronize local state with `isOpen` prop
   useEffect(() => {
     setIsCartOpen(isOpen);
   }, [isOpen]);
 
   const handleCloseCart = () => {
     setIsCartOpen(false);
-    closeCart(); // Notify parent to close the cart
+    closeCart();
   };
 
   const handleCheckout = () => {
     if (cartItems.length > 0) {
-      navigate("/checkout", { state: { cartItems, totalPrice } }); // Navigate to /checkout with state
+      navigate("/checkout", { state: { cartItems, totalPrice } });
     }
   };
 
@@ -61,18 +61,29 @@ export default function SideCart({
         </div>
       </div>
 
-      {/* Container with limited height and overflow */}
-      <div
-        className="p-2 text-black overflow-y-auto h-64 pr-2"
-        style={{ direction: "ltr" }}
-      >
+      <div className="p-2 text-black overflow-y-auto h-64 pr-2">
         <ul>
           {cartItems.length > 0 ? (
             cartItems.map((item, index) => (
-              <li key={index} className="mb-2 flex items-center ml-3 mt-3">
+              <li key={index} className="mb-2 flex-col ml-3 mt-3">
                 <span className="flex-1">
-                  {item.title} - ${item.price.toFixed(2)} x {item.quantity}
+                  {item.title} - ${item.price.toFixed(2)}
                 </span>
+                <div className="flex items-center ml-4">
+                  <button
+                    className="text-blue-500 ml-2"
+                    onClick={() => onDecreaseItemQuantity(index)}
+                  >
+                    -
+                  </button>
+                  <span className="mx-2">{item.quantity}</span>
+                  <button
+                    className="text-blue-500 ml-2"
+                    onClick={() => onIncreaseItemQuantity(index)}
+                  >
+                    +
+                  </button>
+                </div>
                 <button
                   className="text-red-500 ml-4"
                   onClick={() => onRemoveItem(index)}
@@ -100,7 +111,7 @@ export default function SideCart({
               cartItems.length === 0 ? "opacity-100 cursor-not-allowed" : ""
             }`}
             onClick={handleCheckout}
-            disabled={cartItems.length === 0} // Disable button when cart is empty
+            disabled={cartItems.length === 0}
           >
             Checkout
           </button>

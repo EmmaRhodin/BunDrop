@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 export default function PurchasePage() {
@@ -7,8 +7,8 @@ export default function PurchasePage() {
     cartItems: [],
     totalPrice: 0,
   };
+  const navigate = useNavigate();
 
-  // State to store the form data and errors
   const [formData, setFormData] = useState({
     name: "",
     city: "",
@@ -22,37 +22,37 @@ export default function PurchasePage() {
   });
 
   const [errors, setErrors] = useState({});
-  const [paymentMethod, setPaymentMethod] = useState(""); // State to track payment method
+  const [paymentMethod, setPaymentMethod] = useState("");
 
-  // Regular expressions
-  const lettersAndSpaces = /^[a-zA-Z\s]*$/;
+  const lettersAndSpaces = /^[a-zA-ZåäöÅÄÖ\s\-']+$/;
   const numbersOnly = /^[0-9]*$/;
   const creditCardRegex = /^(\d{4}[- ]?){3}\d{4}$/;
-  const cvvRegex = /^[0-9]{0,3}$/; // Regex to ensure only 3 digits are allowed
-  const expiryDateRegex = /^\d{2}\/\d{2}$/; // Regex to ensure format 00/00
+  const cvvRegex = /^[0-9]{0,3}$/;
+  const expiryDateRegex = /^\d{2}\/\d{2}$/;
   const phoneNumberRegex = /^(\+\d{1,3}[-\s]?)?\d{7,15}$/;
 
-  // Validate the form inputs
   const validateForm = () => {
     const newErrors = {};
 
-    // Validate delivery information
     if (!formData.name.trim()) {
       newErrors.name = "Name is required";
     } else if (!lettersAndSpaces.test(formData.name)) {
-      newErrors.name = "Name can only contain letters and spaces";
+      newErrors.name =
+        "Name can only contain letters, spaces, hyphens, and apostrophes";
     }
 
     if (!formData.city.trim()) {
       newErrors.city = "City is required";
     } else if (!lettersAndSpaces.test(formData.city)) {
-      newErrors.city = "City can only contain letters and spaces";
+      newErrors.city =
+        "City can only contain letters, spaces, hyphens, and apostrophes";
     }
 
     if (!formData.streetName.trim()) {
       newErrors.streetName = "Street name is required";
     } else if (!lettersAndSpaces.test(formData.streetName)) {
-      newErrors.streetName = "Street name can only contain letters and spaces";
+      newErrors.streetName =
+        "Street name can only contain letters, spaces, hyphens, and apostrophes";
     }
 
     if (!formData.houseNumber.trim()) {
@@ -61,7 +61,6 @@ export default function PurchasePage() {
       newErrors.houseNumber = "House number can only contain numbers";
     }
 
-    // Validate payment information based on selected payment method
     if (paymentMethod === "Credit Card") {
       if (!formData.cardNumber.trim()) {
         newErrors.cardNumber = "Card number is required";
@@ -90,11 +89,9 @@ export default function PurchasePage() {
         newErrors.swishPhoneNumber = "Invalid phone number format";
       }
     } else {
-      // If no payment method is selected
       newErrors.paymentMethod = "Please select a payment method";
     }
 
-    // Validate apartment floor only if it's filled
     if (formData.apartmentFloor && !numbersOnly.test(formData.apartmentFloor)) {
       newErrors.apartmentFloor = "Apartment floor can only contain numbers";
     }
@@ -102,21 +99,17 @@ export default function PurchasePage() {
     return newErrors;
   };
 
-  // Handle input changes and enforce validation on each input
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
-    // Check for alphabetic inputs for name, city, and streetName
     if (
       (name === "name" || name === "city" || name === "streetName") &&
       !lettersAndSpaces.test(value)
     ) {
-      return; // Ignore invalid characters for alphabetic fields
+      return;
     }
 
-    // Special handling for phone number
     if (name === "swishPhoneNumber") {
-      // Allow only digits, spaces, and "+"
       const newValue = value.replace(/[^+\d\s]/g, "");
       setFormData((prevData) => ({
         ...prevData,
@@ -125,22 +118,18 @@ export default function PurchasePage() {
       return;
     }
 
-    // Check for numeric inputs only for houseNumber and apartmentFloor
     if (
       (name === "houseNumber" || name === "apartmentFloor") &&
       !numbersOnly.test(value)
     ) {
-      return; // Ignore invalid characters for numeric fields
+      return;
     }
 
-    // Handle CVV field to accept only up to 3 digits
     if (name === "cardCVV" && !cvvRegex.test(value)) {
-      return; // Ignore invalid characters for CVV field
+      return;
     }
 
-    // Allow digits and "/" for Expiry Date field
     if (name === "cardDate") {
-      // Allow only digits and "/"
       const newValue = value.replace(/[^0-9\/]/g, "");
       setFormData((prevData) => ({
         ...prevData,
@@ -149,24 +138,21 @@ export default function PurchasePage() {
       return;
     }
 
-    // Allow any characters for credit card number
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
   };
 
-  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     const newErrors = validateForm();
 
     if (Object.keys(newErrors).length === 0) {
-      // No errors, proceed to next step (e.g., confirm purchase)
-      console.log("Form data:", formData);
-      // You can add further logic to proceed with the checkout or payment
+      navigate("/confirmation", {
+        state: { formData, cartItems, totalPrice },
+      });
     } else {
-      // Set errors to show the user
       setErrors(newErrors);
     }
   };
@@ -189,7 +175,7 @@ export default function PurchasePage() {
         <div className="text-xl font-bold">Total: ${totalPrice.toFixed(2)}</div>
 
         <div className="text-3xl mt-4 font-bold">Delivery Information</div>
-        {/* Form for delivery information */}
+
         <form className="mt-4" onSubmit={handleSubmit}>
           <div className="mb-4">
             <input
@@ -280,7 +266,7 @@ export default function PurchasePage() {
           </div>
 
           {paymentMethod === "Credit Card" && (
-            <div className="mt-4">
+            <>
               <div className="mb-4">
                 <input
                   type="text"
@@ -322,29 +308,27 @@ export default function PurchasePage() {
                   <div className="text-red-500">{errors.cardDate}</div>
                 )}
               </div>
-            </div>
+            </>
           )}
 
           {paymentMethod === "Swish" && (
-            <div className="mt-4">
-              <div className="mb-4">
-                <input
-                  type="text"
-                  name="swishPhoneNumber"
-                  value={formData.swishPhoneNumber}
-                  onChange={handleInputChange}
-                  className="border p-2 w-full"
-                  placeholder="Phone Number"
-                />
-                {errors.swishPhoneNumber && (
-                  <div className="text-red-500">{errors.swishPhoneNumber}</div>
-                )}
-              </div>
+            <div className="mb-4">
+              <input
+                type="text"
+                name="swishPhoneNumber"
+                value={formData.swishPhoneNumber}
+                onChange={handleInputChange}
+                className="border p-2 w-full"
+                placeholder="Phone Number"
+              />
+              {errors.swishPhoneNumber && (
+                <div className="text-red-500">{errors.swishPhoneNumber}</div>
+              )}
             </div>
           )}
 
           {errors.paymentMethod && (
-            <div className="text-red-500 mb-4">{errors.paymentMethod}</div>
+            <div className="text-red-500">{errors.paymentMethod}</div>
           )}
 
           <button
