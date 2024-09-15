@@ -1,12 +1,17 @@
 import TopProducts from "../components/TopProducts";
 import Welcome from "../components/Welcome";
 import FeaturedItem from "../components/FeaturedItem";
+import { useCart } from "../context/CartContext";
+import { useState } from "react";
 
 export async function loader() {
   return "hello from loader";
 }
 
 function HomePage() {
+  const { addItemToCart } = useCart();
+  const [cartItems, setCartItems] = useState([]);
+
   return (
     <div>
       <section id="welcome" className="flex items-center justify-center h-full">
@@ -20,7 +25,7 @@ function HomePage() {
           id="top-products"
           className="flex items-center justify-center w-8/12 mx-auto"
         >
-          <TopProducts />
+          <TopProducts addItemToCart={addItemToCart} />
         </section>
       </div>
     </div>

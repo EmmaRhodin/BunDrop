@@ -1,22 +1,35 @@
 import { useState } from "react";
 import NavLinks from "./NavLinks";
 import SideCart from "./SideCart";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import burgeroisieLogo2 from "../assets/icons/Burgeroisie-logo2.svg";
+import { useCart } from "../context/CartContext";
 
 function Navbar() {
-  const [isCartOpen, setIsCartOpen] = useState(false); // Manage cart state
-  const Navigate = useNavigate();
+  const {
+    cartItems,
+    addItemToCart,
+    removeItemFromCart,
+    increaseItemQuantity,
+    decreaseItemQuantity,
+  } = useCart();
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  // Function to toggle cart visibility
   const toggleCart = () => {
     setIsCartOpen((prev) => !prev);
   };
 
-  // Function to close the cart
   const closeCart = () => {
     setIsCartOpen(false);
   };
+
+  const onRemoveItem = (index) => {
+    removeItemFromCart(index);
+  };
+
+  const showSideCart = location.pathname !== "/checkout";
 
   return (
     <>
@@ -30,21 +43,25 @@ function Navbar() {
               alt="webicon"
             />
           </Link>
-          <button
-            className="ml-auto mr-4 text-orange-300"
-            onClick={toggleCart} // Toggle cart visibility
-          >
+          <button className="ml-auto mr-4 text-orange-300" onClick={toggleCart}>
             Cart
           </button>
         </div>
-
-        <div className="">
+        <div>
           <NavLinks />
         </div>
       </nav>
 
-      {/* Pass closeCart function to SideCart */}
-      <SideCart isOpen={isCartOpen} closeCart={closeCart} />
+      {showSideCart && (
+        <SideCart
+          isOpen={isCartOpen}
+          closeCart={closeCart}
+          cartItems={cartItems}
+          onRemoveItem={onRemoveItem}
+          onIncreaseItemQuantity={increaseItemQuantity} // Pass function to SideCart
+          onDecreaseItemQuantity={decreaseItemQuantity} // Pass function to SideCart
+        />
+      )}
     </>
   );
 }
